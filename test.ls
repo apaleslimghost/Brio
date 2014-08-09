@@ -6,10 +6,10 @@ require! {
 }
 
 els = (template, data)-->
-	LiveScript.compile '"""' + template + '"""'
+	LiveScript.compile 'return """' + template + '"""'
 	|> vm.run-in-new-context _, data
-brio-els = brio els
 
+brio-els = brio els
 
 export 'Brio':
 	'passes through text with no frontmatter': ->
