@@ -5,7 +5,9 @@ stack = Symbol \stack
 module.exports = :brio (compiler, templates, path, data)-->
 	template = dot-lens path .get templates
 
-	{body}:page = broca template
+	page = broca template
+	page.body = body = (compiler page.body) {page} import data
+
 	if page.layout?
 		s = data[][stack].concat path
 		if page.layout in s
@@ -13,4 +15,4 @@ module.exports = :brio (compiler, templates, path, data)-->
 		
 		brio compiler, templates, page.layout, data import {page, body, (stack): s}
 	else
-		(compiler body) {page} import data
+		body
