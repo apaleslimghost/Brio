@@ -26,7 +26,8 @@
   "homepage": "https://github.com/quarterto/Brio",
   "dependencies": {
     "broca": "^0.1.0",
-    "dot-lens": "^1.2.3"
+    "dot-lens": "^1.2.3",
+    "es6-symbol": "^0.1.0"
   },
   "devDependencies": {
     "LiveScript": "^1.2.0",

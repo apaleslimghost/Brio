@@ -40,7 +40,7 @@ export 'Brio':
 				b: "hello world"
 			} \a {} .to.be "hello world"
 
-		'have inner available as page.body': ->
+		'have inner available as body': ->
 			expect brio-els {
 				a: '''
 				---
@@ -49,7 +49,7 @@ export 'Brio':
 
 				world
 				'''
-				b: 'hello #{page.body}'
+				b: 'hello #{body}'
 			} \a {} .to.be "hello world"
 
 		'can be nested': ->
@@ -66,9 +66,9 @@ export 'Brio':
 				layout: 'c'
 				---
 
-				hello #{page.body}
+				hello #{body}
 				'''
-				c: 'well #{page.body}'
+				c: 'well #{body}'
 			} \a {} .to.be "well hello world"
 
 		'barf on circular dependencies': ->
