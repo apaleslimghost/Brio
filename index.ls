@@ -1,4 +1,4 @@
-require! {broca, \dot-lens, Symbol: \es6-symbol}
+require! {broca, \dot-lens, Symbol: \es6-symbol, deepmerge}
 
 stack = Symbol \stack
 
@@ -11,13 +11,13 @@ module.exports = :brio (compiler, templates, path, data)-->
 		throw new TypeError "Path '#path' resolves to invalid template"
 	
 	page = broca template
-	page.body = body = (compiler page.body) {page} import data
+	page.body = body = (compiler page.body) {page} `deepmerge` data
 
 	if page.layout?
 		s = data[][stack].concat path
 		if page.layout in s
 			throw new Error "Circular layout dependency #{(s ++ page.layout).join ' → '}"
 		
-		brio compiler, templates, page.layout, data import {page, body, (stack): s}
+		brio compiler, templates, page.layout, data `deepmerge` {page, body, (stack): s}
 	else
 		body

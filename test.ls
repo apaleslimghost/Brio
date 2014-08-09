@@ -121,3 +121,77 @@ export 'Brio':
 				'''
 				c: '#{body} world'
 			} \a.b {} .to.be "hello world"
+
+	'inner page variables':
+		'are available to layouts': ->
+			expect brio-els {
+				a: '''
+				---
+				layout: 'b'
+				title: 'hi'
+				---
+
+				hello
+				'''
+				b: '#{page.title}: #{body} world'
+			} \a {} .to.be "hi: hello world"
+
+		'are available to nested layouts': ->
+			expect brio-els {
+				a: '''
+				---
+				layout: 'b'
+				title: 'hi'
+				---
+
+				world
+				'''
+				b: '''
+				---
+				layout: 'c'
+				---
+
+				hello #{body}
+				'''
+				c: '#{page.title}: well #{body}'
+			} \a {} .to.be "hi: well hello world"
+
+		'are available to intermediate nested layouts': ->
+			expect brio-els {
+				a: '''
+				---
+				layout: 'b'
+				title: 'hi'
+				---
+
+				world
+				'''
+				b: '''
+				---
+				layout: 'c'
+				---
+
+				#{page.title}: hello #{body}
+				'''
+				c: 'well #{body}'
+			} \a {} .to.be "well hi: hello world"
+
+		'are available from intermediate nested layouts': ->
+			expect brio-els {
+				a: '''
+				---
+				layout: 'b'
+				---
+
+				world
+				'''
+				b: '''
+				---
+				layout: 'c'
+				title: 'hi'
+				---
+
+				hello #{body}
+				'''
+				c: '#{page.title}: well #{body}'
+			} \a {} .to.be "hi: well hello world"
