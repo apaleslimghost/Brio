@@ -14,8 +14,10 @@ brio-els = brio els
 export 'Brio':
 	'passes through text with no frontmatter': ->
 		expect brio-els {a: "hello world"} \a {} .to.be "hello world"
+
 	'external variables available at root': ->
 		expect brio-els {a: '#a world'} \a {a: "hello"} .to.be "hello world"
+
 	'frontmatter variables available in page object': ->
 		expect brio-els {
 			a: '''
@@ -25,8 +27,15 @@ export 'Brio':
 			#{page.a} world
 			'''
 		} \a {} .to.be "hello world"
+
 	'nested objects available as dotted access': ->
 		expect brio-els {a: b: "hello world"} \a.b {} .to.be "hello world"
+
+	'barfs if template not found': ->
+		expect brio-els {a: "hello world"} .with-args \b {} .to.throw-exception /Path 'b' not found/
+	'barfs if template not a string': ->
+		expect brio-els {a: b: "hello world"} .with-args \a {} .to.throw-exception /Path 'a' resolves to invalid template/
+
 	'layouts':
 		'replace content': ->
 			expect brio-els {
@@ -89,3 +98,26 @@ export 'Brio':
 				'''
 			} .with-args \a {} .to.throw-exception /Circular layout dependency a → b → a/
 
+		'layouts can be dotted': ->
+			expect brio-els {
+				a: '''
+				---
+				layout: 'b.c'
+				---
+
+				hello
+				'''
+				b: c: '#{body} world'
+			} \a {} .to.be "hello world"
+
+		'layouts work at top level from dotted templates': ->
+			expect brio-els {
+				a: b: '''
+				---
+				layout: 'c'
+				---
+
+				hello
+				'''
+				c: '#{body} world'
+			} \a.b {} .to.be "hello world"

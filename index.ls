@@ -5,6 +5,11 @@ stack = Symbol \stack
 module.exports = :brio (compiler, templates, path, data)-->
 	template = dot-lens path .get templates
 
+	unless template?
+		throw new ReferenceError "Path '#path' not found"
+	else unless typeof template is \string
+		throw new TypeError "Path '#path' resolves to invalid template"
+	
 	page = broca template
 	page.body = body = (compiler page.body) {page} import data
 
