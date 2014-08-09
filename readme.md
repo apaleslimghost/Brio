@@ -1,4 +1,4 @@
-# Brio
+# Brio [![Build Status](https://travis-ci.org/quarterto/Brio.svg?branch=v0.1.1)](https://travis-ci.org/quarterto/Brio)
 
 Templated layout builders.
 
