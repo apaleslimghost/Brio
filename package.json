@@ -23,5 +23,13 @@
   "bugs": {
     "url": "https://github.com/quarterto/Brio/issues"
   },
-  "homepage": "https://github.com/quarterto/Brio"
+  "homepage": "https://github.com/quarterto/Brio",
+  "dependencies": {
+    "broca": "^0.1.0"
+  },
+  "devDependencies": {
+    "LiveScript": "^1.2.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^1.21.4"
+  }
 }
