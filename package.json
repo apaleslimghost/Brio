@@ -26,6 +26,7 @@
   "homepage": "https://github.com/quarterto/Brio",
   "dependencies": {
     "broca": "^0.1.0",
+    "bunch-of-errors": "0.0.0",
     "deepmerge": "^0.2.7",
     "es6-symbol": "^0.1.0",
     "flat": "^1.2.1"
