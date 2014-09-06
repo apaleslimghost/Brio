@@ -26,3 +26,5 @@ module.exports = :brio (compiler, templates, path, data)-->
 		brio compiler, templates, page.layout, data `deepmerge` {page, body, (stack): s}
 	else
 		body
+
+module.exports import {errors}

@@ -38,15 +38,15 @@ export 'Brio':
 		expect brio-els {a: b: "hello world"} \a.b {} .to.be "hello world"
 
 	'barfs if template not found': ->
-		expect brio-els {a: "hello world"} .with-args \b {} .to.throw-a ReferenceError, /Path 'b' not found/
+		expect brio-els {a: "hello world"} .with-args \b {} .to.throw-a brio.errors.PathNotFoundError, /Path 'b' not found/
 	'barfs if nested template not found': ->
-		expect brio-els {a: "hello world"} .with-args \a.b {} .to.throw-a ReferenceError, /Path 'a.b' not found/
+		expect brio-els {a: "hello world"} .with-args \a.b {} .to.throw-a brio.errors.PathNotFoundError, /Path 'a.b' not found/
 	'barfs if template not found in empty thing': ->
-		expect brio-els {} .with-args \a {} .to.throw-a ReferenceError,  /Path 'a' not found/
+		expect brio-els {} .with-args \a {} .to.throw-a brio.errors.PathNotFoundError, /Path 'a' not found/
 	'barfs if nested template not found in empty thing': ->
-		expect brio-els {} .with-args \a.b {} .to.throw-a ReferenceError,  /Path 'a.b' not found/
+		expect brio-els {} .with-args \a.b {} .to.throw-a brio.errors.PathNotFoundError, /Path 'a.b' not found/
 	'barfs if template not a string': ->
-		expect brio-els {a: 5} .with-args \a {} .to.throw-a TypeError,  /Path 'a' resolves to invalid template/
+		expect brio-els {a: 5} .with-args \a {} .to.throw-a brio.errors.InvalidTemplateError, /Path 'a' resolves to invalid template/
 
 	'layouts':
 		'replace content': ->
@@ -108,7 +108,7 @@ export 'Brio':
 
 				world
 				'''
-			} .with-args \a {} .to.throw-an Error,  /Circular layout dependency a → b → a/
+			} .with-args \a {} .to.throw-an brio.errors.CircularDependencyError, /Circular layout dependency a → b → a/
 
 		'layouts can be dotted': ->
 			expect brio-els {
