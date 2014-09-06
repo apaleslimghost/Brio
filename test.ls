@@ -33,6 +33,12 @@ export 'Brio':
 
 	'barfs if template not found': ->
 		expect brio-els {a: "hello world"} .with-args \b {} .to.throw-exception /Path 'b' not found/
+	'barfs if nested template not found': ->
+		expect brio-els {a: "hello world"} .with-args \a.b {} .to.throw-exception /Path 'a.b' not found/
+	'barfs if template not found in empty thing': ->
+		expect brio-els {} .with-args \a {} .to.throw-exception /Path 'a' not found/
+	'barfs if nested template not found in empty thing': ->
+		expect brio-els {} .with-args \a.b {} .to.throw-exception /Path 'a.b' not found/
 	'barfs if template not a string': ->
 		expect brio-els {a: b: "hello world"} .with-args \a {} .to.throw-exception /Path 'a' resolves to invalid template/
 
