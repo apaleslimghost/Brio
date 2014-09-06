@@ -40,7 +40,7 @@ export 'Brio':
 	'barfs if nested template not found in empty thing': ->
 		expect brio-els {} .with-args \a.b {} .to.throw-exception /Path 'a.b' not found/
 	'barfs if template not a string': ->
-		expect brio-els {a: b: "hello world"} .with-args \a {} .to.throw-exception /Path 'a' resolves to invalid template/
+		expect brio-els {a: 5} .with-args \a {} .to.throw-exception /Path 'a' resolves to invalid template/
 
 	'layouts':
 		'replace content': ->

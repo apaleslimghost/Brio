@@ -1,9 +1,9 @@
-require! {broca, \dot-lens, Symbol: \es6-symbol, deepmerge}
+require! {broca, flat.flatten, Symbol: \es6-symbol, deepmerge}
 
 stack = Symbol \stack
 
 module.exports = :brio (compiler, templates, path, data)-->
-	template = dot-lens path .get templates
+	template = flatten templates .[path]
 
 	unless template?
 		throw new ReferenceError "Path '#path' not found"
